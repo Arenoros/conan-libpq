@@ -1,0 +1,7 @@
+sources:
+  '11.5':
+    sha256: f639af0f8c3f1e470e41c8108cbdaea5836b2738cadd422135aa2a0febc8ae78
+    url: https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.gz
+  '12.0':
+    sha256: 15c7f267b476d764c79401d7f61f39c76222314951f77e6893a5854db26b6616
+    url: https://ftp.postgresql.org/pub/source/v12.0/postgresql-12.0.tar.gz
