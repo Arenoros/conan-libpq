@@ -52,7 +52,7 @@ class LibpqConan(ConanFile):
         if self.options.with_zlib:
             self.requires.add("zlib/1.2.11")
         if self.options.with_openssl:
-            self.requires.add("OpenSSL/1.1.1c@conan/stable")
+            self.requires.add("openssl/1.1.1c")
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
@@ -105,14 +105,14 @@ class LibpqConan(ConanFile):
                 for ssl in ["VC\libssl32", "VC\libssl64", "libssl"]:
                     tools.replace_in_file(solution_pm,
                                           "%s.lib" % ssl,
-                                          "%s.lib" % self.deps_cpp_info["OpenSSL"].libs[0])
+                                          "%s.lib" % self.deps_cpp_info["openssl"].libs[0])
                 for crypto in ["VC\libcrypto32", "VC\libcrypto64", "libcrypto"]:
                     tools.replace_in_file(solution_pm,
                                           "%s.lib" % crypto,
-                                          "%s.lib" % self.deps_cpp_info["OpenSSL"].libs[1])
+                                          "%s.lib" % self.deps_cpp_info["openssl"].libs[1])
                 tools.replace_in_file(config_default_pl,
                                       "openssl   => undef",
-                                      "openssl   => '%s'" % self.deps_cpp_info["OpenSSL"].rootpath.replace("\\", "/"))
+                                      "openssl   => '%s'" % self.deps_cpp_info["openssl"].rootpath.replace("\\", "/"))
             with tools.vcvars(self.settings):
                 config = "DEBUG" if self.settings.build_type == "Debug" else "RELEASE"
                 with tools.environment_append({"CONFIG": config}):
