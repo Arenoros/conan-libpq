@@ -17,9 +17,11 @@ class LibpqConan(ConanFile):
         "fPIC": [True, False],
         "with_zlib": [True, False],
         "with_openssl": [True, False],
-        "disable_rpath": [True, False]}
+        "disable_rpath": [True, False],
+		"with_spinlock": [True, False]}
     #default_options = {'shared': False, 'fPIC': True, 'with_zlib': True, 'with_openssl': False, 'disable_rpath': False}
-    default_options = {'shared': False, 'fPIC': True, 'with_zlib': True, 'with_openssl': True, 'disable_rpath': False}
+    default_options = {'shared': False, 'fPIC': True, 'with_zlib': True, 'with_openssl': True, 'disable_rpath': False, 'with_spinlock':True}
+	
     _autotools = None
 
     def build_requirements(self):
@@ -69,6 +71,8 @@ class LibpqConan(ConanFile):
                 args.append("--disable-strong-random")
             if self.settings.os != "Windows" and self.options.disable_rpath:
                 args.append('--disable-rpath')
+            if not self.options.with_spinlock:
+                args.append('--disable-spinlocks')
             if self._is_clang8_x86:
                 self._autotools.flags.append("-msse2")
             with tools.chdir(self._source_subfolder):
